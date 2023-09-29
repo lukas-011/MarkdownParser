@@ -19,6 +19,7 @@ class MarkdownParser : CodeParser{
         val italics = Regex("\\s?+\\*(.*)\\*")
         val boldtext = Regex("\\s?+\\*\\*(.*)\\*\\*")
         val blockquote = Regex("\\s?+>(.*)")
+        val horizonalLine = Regex(".*?(---).*?")
 
         //****************************************************************
         // reads our markdown file in line by line and places it into lines
@@ -87,9 +88,17 @@ class MarkdownParser : CodeParser{
                     writer.newLine()
                 }
             }
+            //---
+            else if (horizonalLine.matches(line)) {
+                val matched = horizonalLine.matchEntire(line)
+                matched?.let {
+                    writer.write(md.toHTML(matched.groupValues[1], 7))
+                    writer.newLine()
+                }
+            }
             // blank line or text
             else {
-                    writer.write(md.toHTML(line, 7))
+                    writer.write(md.toHTML(line, 8))
                     writer.newLine()
             }
         }

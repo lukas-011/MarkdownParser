@@ -10,6 +10,7 @@ open class MarkdownNode : Node() {
             4 -> "<b>$text</b>"
             5 -> "<i>$text</i>"
             6 -> "<blockquote>$text</blockquote>"
+            7 -> "<hr>"
             else -> text
         }
     }
